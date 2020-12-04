@@ -53,38 +53,22 @@ export default class Coin extends Component {
     }
 
     render() {
-      if (this.props.showBalance === true) {
         return (
             <tr>
               <CoinRow>{this.props.name}</CoinRow>
               <CoinRow>{this.props.ticker}</CoinRow>
               <CoinRow>${this.props.price}</CoinRow>
-              <CoinRow>{this.props.balance}</CoinRow>
+              {this.props.showBalance ? <CoinRow>{this.props.balance}</CoinRow> : null}
               <CoinRow>
                 <form action="#" method="POST">
                   <Button onClick = {this.handleClick}>Refresh</Button>
                 </form>
               </CoinRow>
             </tr>
-          );
-      }
-      else {
-        return (
-          <tr>
-            <CoinRow>{this.props.name}</CoinRow>
-            <CoinRow>{this.props.ticker}</CoinRow>
-            <CoinRow>${this.props.price}</CoinRow>
-            <CoinRow></CoinRow>
-            <CoinRow>
-              <form action="#" method="POST">
-                <Button onClick = {this.handleClick}>Refresh</Button>
-              </form>
-            </CoinRow>
-          </tr>
         );
-      }
     }
 }
+
 
 Coin.propTypes = {
     name: PropTypes.string.isRequired,

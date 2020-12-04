@@ -11,21 +11,19 @@ const Section = styled.section`
 export default class AccountBalance extends Component {
     render() {
         const buttonText = this.props.showBalance ? 'Hide Balance' : 'Show Balance';
-        if (this.props.showBalance === true) {
-            return (
-                <Section>
-                    Balance: $ {this.props.amount}
-                    <button onClick = {this.props.handleToggle}>{buttonText}</button>
-                </Section>
-            );
+        let content = null;
+        
+        if (this.props.showBalance) {
+            content = <> Balance: $ {this.props.amount} </> 
         }
-        else {
-            return (
-                <Section>
-                    <button onClick = {this.props.handleToggle}>{buttonText}</button>
-                </Section>
-            );
-        }
+        
+        return (
+            <Section>
+                {content}
+                <button onClick = {this.props.handleToggle}>{buttonText}</button>
+            </Section>
+        );
+        
     }
 }
 AccountBalance.propTypes = {

@@ -72,7 +72,15 @@ class App extends React.Component {
   }
 
   handleToggle() {
-    if (this.state.showBalance === true) {
+    
+      this.setState (function (oldState) {
+        return {
+          ...oldState,
+          showBalance: !oldState.showBalance
+        }
+      });
+    
+   /* if (this.state.showBalance === true) {
       this.setState ({
         showBalance: false
       });
@@ -81,8 +89,8 @@ class App extends React.Component {
       this.setState ({
         showBalance: true
       });
-    }
-  }
+    } */
+  } 
 
   render() {
 
