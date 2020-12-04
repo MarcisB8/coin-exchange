@@ -12,49 +12,45 @@ const Div = styled.div`
 
 class App extends React.Component {
   
-  constructor(props) {
-    super(props);
-    this.state = {
-      balance: 10000,
-      showBalance: true,
-      coinData: [
+  state = {
+    balance: 10000,
+    showBalance: true,
+    coinData: [
 
-        {
-          name: 'Bitcoin',
-          ticker: 'BTC',
-          price: 18000.99,
-          balance: 0.50
-        },
-        {
-          name: 'Ethereum',
-          ticker: 'ETH',
-          price: 599.99,
-          balance: 32.00
-        },
-        {
-          name: 'Tether',
-          ticker: 'USDT',
-          price: 1.00,
-          balance: 0
-        },
-        {
-          name: 'Ripple',
-          ticker: 'XRP',
-          price: 0.59,
-          balance: 1000
-        },
-        {
-          name: 'Bitcoin Cash',
-          ticker: 'BCH',
-          price: 299.99,
-          balance: 0
-        }
-      ]
-    }
-    this.handleRefresh = this.handleRefresh.bind(this);
-    this.handleToggle = this.handleToggle.bind(this)
+      {
+        name: 'Bitcoin',
+        ticker: 'BTC',
+        price: 18000.99,
+        balance: 0.50
+      },
+      {
+        name: 'Ethereum',
+        ticker: 'ETH',
+        price: 599.99,
+        balance: 32.00
+      },
+      {
+        name: 'Tether',
+        ticker: 'USDT',
+        price: 1.00,
+        balance: 0
+      },
+      {
+        name: 'Ripple',
+        ticker: 'XRP',
+        price: 0.59,
+        balance: 1000
+      },
+      {
+        name: 'Bitcoin Cash',
+        ticker: 'BCH',
+        price: 299.99,
+        balance: 0
+      }
+    ]
   }
-  handleRefresh(valueChangeTicker){
+
+  handleRefresh = (valueChangeTicker) => {
     const newCoinData = this.state.coinData.map( function({ticker, name, price, balance}) {
       let newPrice = price;
       if ( valueChangeTicker === ticker ) {
@@ -71,7 +67,7 @@ class App extends React.Component {
     this.setState ({coinData: newCoinData});
   }
 
-  handleToggle() {
+  handleToggle= () => {
     
       this.setState (function (oldState) {
         return {
@@ -93,7 +89,6 @@ class App extends React.Component {
   } 
 
   render() {
-
     return (
       <Div>
         <ExchangeHeader />
