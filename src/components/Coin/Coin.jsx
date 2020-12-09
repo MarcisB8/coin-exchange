@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
@@ -14,7 +14,7 @@ const Button = styled.button`
   background-color: rgb(30, 84, 119);
 `;
 
-export default class Coin extends Component {
+export default function Coin (props) {
 
     /*
     componentDidMount() {
@@ -33,11 +33,11 @@ export default class Coin extends Component {
     }
     */
 
-    handleClick = (event) => {
+    const handleClick = (event) => {
       // prevent the default action of submitting the form
 
       event.preventDefault();
-      this.props.handleRefresh(this.props.ticker);
+      props.handleRefresh(props.tickerId);
 /*
       const randomPercentage = 0.995 + Math.random() * 0.01;
       this.setState (function (oldState) {
@@ -48,23 +48,20 @@ export default class Coin extends Component {
       */
     }
 
-    render() {
-        return (
-            <tr>
-              <CoinRow>{this.props.name}</CoinRow>
-              <CoinRow>{this.props.ticker}</CoinRow>
-              <CoinRow>${this.props.price}</CoinRow>
-              {this.props.showBalance ? <CoinRow>{this.props.balance}</CoinRow> : null}
-              <CoinRow>
-                <form action="#" method="POST">
-                  <Button onClick = {this.handleClick}>Refresh</Button>
-                </form>
-              </CoinRow>
-            </tr>
-        );
-    }
+    return (
+        <tr>
+          <CoinRow>{props.name}</CoinRow>
+          <CoinRow>{props.ticker}</CoinRow>
+          <CoinRow>${props.price}</CoinRow>
+          {props.showBalance ? <CoinRow>{props.balance}</CoinRow> : null}
+          <CoinRow>
+            <form action="#" method="POST">
+              <Button onClick = {handleClick}>Refresh</Button>
+            </form>
+          </CoinRow>
+        </tr>
+    );
 }
-
 
 Coin.propTypes = {
     name: PropTypes.string.isRequired,
