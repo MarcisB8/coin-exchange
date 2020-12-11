@@ -8,6 +8,12 @@ const Section = styled.section`
     padding: 1.5rem 0 1.5rem 5rem;
 `;
 
+const Button = styled.button`
+  border: 1px solid #cccccc;
+  color: #cccccc;
+  background-color: rgb(40, 100, 130);
+`;
+
 export default function AccountBalance (props) {
     
     const buttonText = props.showBalance ? 'Hide Balance' : 'Show Balance';
@@ -19,8 +25,8 @@ export default function AccountBalance (props) {
     
     return (
         <Section>
-            {content}
-            <button onClick = {props.handleToggle}>{buttonText}</button>
+            {content} <br></br>
+            <Button onClick = {props.handleToggle}>{buttonText}</Button>
         </Section>
     );
 }

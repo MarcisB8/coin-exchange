@@ -1,7 +1,8 @@
 import React, {useState, useEffect} from 'react';
 import styled from 'styled-components';
 import CoinList from './components/CoinList/CoinList';
-import AccountBalance from './components/AccountBalance/AccountBalance'
+import AccountBalance from './components/AccountBalance/AccountBalance';
+import Helicopter from './components/Helicopter/Helicopter';
 import ExchangeHeader from './components/ExchangeHeader/ExchangeHeader';
 import axios from 'axios';
 
@@ -60,16 +61,67 @@ function App (props) {
     setCoinData(newCoinData);
   }
 
-  const handleToggle= () => {
+  const handleToggle = () => {
     
       setShowBalance(oldValue => !oldValue);
   } 
+  const handleHelicopter = () => {
+    
+    setBalance(oldValue => oldValue + 1200);
+  }
+  const handleBuy = (value, coin_id, price) => {
+    debugger;
+    const newCoinData = coinData.map(values =>{
+      let newValues = {...values};
+      
+      if(coin_id === newValues.key){
+
+        if(balance >= price*value){
+          var check = window.confirm("Buy " + value + " " + coin_id + " for " + price*value + " USD?");
+          if (check === true) {
+            newValues.price = price;
+            newValues.balance += parseFloat(value);
+            setBalance(balance - price*value);
+          } 
+        }
+        else {
+          alert("Insufficient funds");
+        }
+      }
+        return newValues;
+    })
+    setCoinData(newCoinData);
+  }
+
+  const handleSell = (value, coin_id, price) => {
+
+    const newCoinData = coinData.map(values =>{
+    let newValues = {...values};
+    
+    if(coin_id === newValues.key){
+      if(newValues.balance >= value){
+        var check = window.confirm("Sell " + value + " " + coin_id + " for " + price*value + " USD?");
+        if (check === true) {
+          newValues.price = price;
+          newValues.balance -= value;
+          setBalance(balance + price*value);
+        }
+      }
+      else {
+        alert("Insufficient funds");
+      }
+    }
+      return newValues;
+    })
+    setCoinData(newCoinData);
+  }
 
   return (
     <Div>
       <ExchangeHeader />
       <AccountBalance amount={balance} showBalance={showBalance} handleToggle={handleToggle}/>
-      <CoinList coinData={coinData} showBalance={showBalance} handleRefresh={handleRefresh} />
+      <Helicopter handleHelicopter={handleHelicopter} />
+      <CoinList coinData={coinData} showBalance={showBalance} handleRefresh={handleRefresh} handleBuy={handleBuy} handleSell={handleSell}/>
     </Div>
   );
 }
