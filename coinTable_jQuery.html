@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <title>Coin Table (jQuery)</title>
+</head>
+<body>
+    <script>
+        
+        fetch('https://api.coinpaprika.com/v1/coins')
+        .then( response => response.json() )
+        .then( coins => {
+            for (let i = 0; i < 5; ++i ) {
+                const coin = coins[i];
+                console.log( coin.name, coin.symbol );
+                $("#coinTable tbody").append($("<tr><td>"+ coin.name +"</td><td>"+ coin.symbol +"</td></tr>"));
+            }
+        } );
+    
+    </script>
+    <table id="coinTable">
+        <tbody>
+            <tr>
+                <th>Name</th><th>Symbol</th>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>

@@ -4,19 +4,16 @@ import styled from 'styled-components';
 
 const CoinRow = styled.td`
   border: 1px solid #cccccc;
-  width: 25vh;
+  width: 9vw;
+`;
+
+const Actions = styled(CoinRow)`
+    width: 29vw;
 `;
 
 const Button = styled.button`
-  border: 1px solid #cccccc;
-  color: #cccccc;
-  background-color: rgb(40, 100, 130);
-`;
-
-const InputStyle = styled.input`
-  border: none;
-  width: 25vh;
-  background-color: rgb(40, 100, 130);
+  font-size: 15px;
+  width: 80px;
 `;
 
 export default function Coin (props) {
@@ -36,7 +33,7 @@ export default function Coin (props) {
       };
       return (
         <>
-          <input placeholder="Enter amount" value={value} onChange={onChange} />
+          <input className="ml-5 mt-2 mr-2 bg-info text-white border-0 w-25" placeholder="Enter amount" value={value} onChange={onChange} />
         </>
       );
     }
@@ -58,17 +55,15 @@ export default function Coin (props) {
           <CoinRow>{props.name}</CoinRow>
           <CoinRow>{props.ticker}</CoinRow>
           <CoinRow>${props.price}</CoinRow>
-          {props.showBalance ? <CoinRow>{props.balance}</CoinRow> : null}
-          <CoinRow>
+          <CoinRow>{props.showBalance ? props.balance : "-"}</CoinRow>
+          <Actions>
             <form action="#" method="POST">
-              <Button onClick = {handleClick}>Refresh</Button>
+              <Button className="mb-2 mr-5 btn btn-info" onClick = {handleClick}>Refresh</Button>
+              <Input type="number"/>
+              <Button className="mb-2 mr-2 btn btn-warning" onClick = {HandleBuyClick}>Buy</Button>
+              <Button className="mb-2 btn btn-danger" onClick = {HandleSellClick}>Sell</Button>
             </form>
-            <form action="#" method="POST">
-              <Input type="number" style={InputStyle}/><br></br>
-              <Button onClick = {HandleBuyClick}>Buy</Button>
-              <Button onClick = {HandleSellClick}>Sell</Button>
-            </form>
-          </CoinRow>
+          </Actions>
         </tr>
     );
 }

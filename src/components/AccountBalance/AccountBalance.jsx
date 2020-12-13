@@ -4,30 +4,49 @@ import styled from 'styled-components';
 
 const Section = styled.section`
     font-size: 2rem;
-    text-align: left;
-    padding: 1.5rem 0 1.5rem 5rem;
+    text-align: center;
+    margin-bottom: 2rem;
+    line-height: 3rem;
+`;
+
+const Balance = styled.div`
+    min-width: 250px;
+    margin: 0.5rem 0 0 2.5rem;
+    font-size: 2rem;
+    vertical-align: middle;
 `;
 
 const Button = styled.button`
-  border: 1px solid #cccccc;
-  color: #cccccc;
-  background-color: rgb(40, 100, 130);
+    margin: 0 8px;
 `;
+
+const BalanceToggleButton = styled(Button)`
+    width: 150px;
+`;
+
+var formatter = Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: 'USD'
+});
 
 export default function AccountBalance (props) {
     
     const buttonText = props.showBalance ? 'Hide Balance' : 'Show Balance';
-    let content = null;
-    
+    let content = '\u00A0';
     if (props.showBalance) {
-        content = <> Balance: $ {props.amount} </> 
+        content = <> {formatter.format (props.amount)} </>;
     }
+    const buttonClass = 'btn ' + (props.showBalance ? 'btn-warning' : 'btn-info');
+    
     
     return (
-        <Section>
-            {content} <br></br>
-            <Button onClick = {props.handleToggle}>{buttonText}</Button>
-        </Section>
+        <>
+            <Balance>{content}</Balance> 
+            <Section>
+                <BalanceToggleButton onClick = {props.handleToggle} className = {buttonClass}>{buttonText}</BalanceToggleButton>
+                <Button onClick = {props.handleHelicopter} className="btn btn-success"><i className="fas fa-helicopter"></i></Button>
+            </Section>
+        </>
     );
 }
 

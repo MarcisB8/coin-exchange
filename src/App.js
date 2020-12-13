@@ -2,9 +2,13 @@ import React, {useState, useEffect} from 'react';
 import styled from 'styled-components';
 import CoinList from './components/CoinList/CoinList';
 import AccountBalance from './components/AccountBalance/AccountBalance';
-import Helicopter from './components/Helicopter/Helicopter';
 import ExchangeHeader from './components/ExchangeHeader/ExchangeHeader';
 import axios from 'axios';
+
+// import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootswatch/dist/flatly/bootstrap.min.css';
+
+import '@fortawesome/fontawesome-free/js/all';
 
 const Div = styled.div`
     text-align: center;
@@ -18,7 +22,7 @@ const formatPrice = price => parseFloat(Number(price).toFixed(4));
 function App (props) {
   
   const [balance, setBalance] = useState(10000);
-  const [showBalance, setShowBalance] = useState(true);
+  const [showBalance, setShowBalance] = useState(false);
   const [coinData, setCoinData] = useState([]);
 
   const componentDidMount = async () => {
@@ -74,7 +78,7 @@ function App (props) {
     const newCoinData = coinData.map(values =>{
       let newValues = {...values};
       
-      if(coin_id === newValues.key){
+      if(coin_id === newValues.key && value !== undefined){
 
         if(balance >= price*value){
           var check = window.confirm("Buy " + value + " " + coin_id + " for " + price*value + " USD?");
@@ -119,8 +123,7 @@ function App (props) {
   return (
     <Div>
       <ExchangeHeader />
-      <AccountBalance amount={balance} showBalance={showBalance} handleToggle={handleToggle}/>
-      <Helicopter handleHelicopter={handleHelicopter} />
+      <AccountBalance amount={balance} showBalance={showBalance} handleToggle={handleToggle} handleHelicopter={handleHelicopter}/>
       <CoinList coinData={coinData} showBalance={showBalance} handleRefresh={handleRefresh} handleBuy={handleBuy} handleSell={handleSell}/>
     </Div>
   );

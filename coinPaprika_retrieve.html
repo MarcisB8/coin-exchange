@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <title>Coin Table (jQuery)</title>
+</head>
+<body>
+    <script>
+
+        let coinIDs = [];
+        const limit = 5;
+
+        fetch('https://api.coinpaprika.com/v1/coins')
+        .then( response => response.json() )
+        .then( coins => {
+            for (let i = 0; i < limit; ++i ) {
+                const coin = coins[i];
+                console.log( coin.id );
+                coinIDs.push( "https://api.coinpaprika.com/v1/tickers/" + coin.id );
+
+            }
+            console.log( coinIDs);
+        } )
+        .then( fetch(coinIDs[0]))
+        .then( response => response.json() )
+        .then( coins => {
+                  console.log( coin.name, coin.symbol, coin.quotes.USD.price );
+                  $("#coinTable tbody").append($("<tr><td>"+ coin.name +"</td><td>"+ coin.symbol +"</td><td>"+ coin.quotes.USD.price +"</td></tr>"));
+        })
+              
+            
+
+        /*
+                    console.log( coin.name, coin.symbol, coin.quotes.USD.price );
+                    $("#coinTable tbody").append($("<tr><td>"+ coin.name +"</td><td>"+ coin.symbol +"</td><td>"+ coin.quotes.USD.price +"</td></tr>"));
+                } );
+            }
+        })*/
+
+    </script>
+    <table id="coinTable">
+        <tbody>
+            <tr>
+                <th>Coin</th><th>Ticker</th><th>Price USD</th>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>

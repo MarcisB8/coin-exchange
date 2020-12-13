@@ -19,7 +19,7 @@ export default function Helicopter (props) {
     
     return (
         <Section>
-            <Button onClick = {props.handleHelicopter}>{buttonText}</Button>
+            
         </Section>
     );
 }

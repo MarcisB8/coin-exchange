@@ -11,13 +11,13 @@ const Table = styled.table`
 export default function CoinList (props) {
     
     return (
-        <Table className="coin-table">
+        <Table>
             <thead>
             <tr>
                 <th>Name</th>
                 <th>Price</th>
                 <th>Ticker</th>
-                {props.showBalance ? <th>Balance</th> : null}
+                <th>Balance</th>
                 <th>Actions</th>
             </tr>
             </thead>
